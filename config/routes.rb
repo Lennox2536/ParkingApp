@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/history', to: 'bookings#bookings_history'
 
   post 'slack/book', to: 'slack#book'
+  post 'slack/release', to: 'slack#release'
 
   resources :places, only: %i[index show]
 end
