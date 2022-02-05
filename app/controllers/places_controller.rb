@@ -6,7 +6,7 @@ class PlacesController < ApplicationController
   def show; end
 
   def book
-    if BookingService.perform(@user, params[:place]).valid?
+    if BookingService.perform(@user, params[:place])
       flash.notice = 'Booked a place'
     else
       flash.alert = 'Something went wrong'
