@@ -25,9 +25,14 @@
             <li class="nav-item">
               <a class="nav-link" href="/places">Places</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
+            <% if @user %>
+              <li class="nav-item">
+                <a class="nav-link" href="/my_booking">My booking</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/history">Bookings History</a>
+              </li>
+            <% end %>
           </ul>
           <span class="navbar-text">
             <% unless @user %>

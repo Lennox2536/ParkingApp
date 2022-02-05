@@ -5,12 +5,7 @@ class PlacesController < ApplicationController
 
   def show; end
 
-  def update
-    puts 'oja pierodle'
-  end
-
   def book
-    puts @user
     if BookingService.perform(@user, params[:place]).valid?
       flash.notice = 'Booked a place'
     else
