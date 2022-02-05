@@ -3,7 +3,7 @@ class UserProvider
     def retrieve_user(code)
       body = RequestService.request_body('api/oauth.v2.access',
                                          { code: code, client_id: ENV['CLIENT_ID'],
-                                           client_secret: ENV['CLIENT_SECRET'] })
+                                           client_secret: ENV['CLIENT_SECRET'], redirect_uri: 'https://parking-app-rails.herokuapp.com/auth/slack/callback' })
       data = JSON.parse(body)
       puts data
       user_id = data['authed_user']['id'] if data.key?('authed_user')
