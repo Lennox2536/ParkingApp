@@ -1,7 +1,7 @@
 <div class="px-4 py-5 my-5 text-center">
   <% if @user.booked_place? %>
     <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">is the place you've booked.</p>
+      <p class="lead mb-4"><%= @user.active_booking.place.number %>is the place you've booked.</p>
       <a class="btn btn-primary btn-sm" href="/release?number=<%= @user.active_booking.place.number %>">Release</a>
     </div>
   <% else %>

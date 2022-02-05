@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def create
     user = UserProvider.retrieve_user(params[:code])
-    puts "inside create"
+    puts 'inside create'
     maybe_user = User.find_by(slack_id: user.slack_id)
     if maybe_user
       session[:user_id] = maybe_user.id
@@ -14,18 +14,18 @@ class SessionsController < ApplicationController
       if user.save
         session[:user_id] = user.id
       else
-        flash.alert = "Something went wrong"
+        flash.alert = 'Something went wrong'
         redirect_to '/' and return
       end
     end
 
-    flash.notice = "Succesfully logged in."
+    flash.notice = 'Succesfully logged in.'
     redirect_to '/'
   end
 
   def log_out
     session[:user_id] = nil
-    flash.notice = "Logged out"
+    flash.notice = 'Logged out'
     redirect_to '/'
   end
 end
