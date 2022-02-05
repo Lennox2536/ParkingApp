@@ -1,1 +1,14 @@
-History of your bookings.
+<h1 class="display-5 fw-bold">History of your bookings.</h1>
+<ol class="list-group list-group-numbered">
+  <% @user.bookings.by_created_at.each do |booking| %>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">Place <%= booking.place.number %></div>
+        <%= booking.created_at %>
+      </div>
+      <% if booking.release %>
+        <span class="badge bg-primary rounded-pill">released</span>
+      <% end %>
+    </li>
+  <% end %>
+</ol>

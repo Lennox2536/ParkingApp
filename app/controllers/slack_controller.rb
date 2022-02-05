@@ -35,7 +35,7 @@ class SlackController < ActionController::Base
       if place.free?
         json = { text: 'Place is free.'}
       else
-        user_name = place.bookings.active.first.user.name
+        user_name = place.bookings.active.first.user.slack_id
         name_to_call = user_name.eql?(params['user_id']) ? 'you' : user_name
         json = { text: "Place is taken by #{name_to_call}." }
       end
