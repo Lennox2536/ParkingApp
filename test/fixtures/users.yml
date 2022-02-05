@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  slack_id: MyString
-  name: MyString
+  slack_id: "first_user_id"
+  name: "FirstUser"
 
 two:
-  slack_id: MyString
-  name: MyString
+  slack_id: "second_user_id"
+  name: "SecondUser"
