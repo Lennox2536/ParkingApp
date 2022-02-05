@@ -21,6 +21,23 @@ class SlackController < ApplicationController
     render json: json
   end
 
+  def place_status
+    place = Place.find_by(number: params["text"].to_i)
+
+    if place
+      if place.free?
+        json = { text: 'Place is free.'}
+      else
+        user_name = place.bookings.active.first.user.name
+        json = { text: "Place is taken by #{user_name}."}
+      end
+    else
+      json = { text: 'Something went wrong.'}
+    end
+
+    render json: json
+  end
+
   private
 
   def user

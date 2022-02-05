@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   post 'slack/book', to: 'slack#book'
   post 'slack/release', to: 'slack#release'
+  post 'slack/place_status', to: 'slack#place_status'
 
   resources :places, only: %i[index show]
 end
