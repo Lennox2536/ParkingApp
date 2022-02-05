@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root 'home#index'
+  get '/auth/slack/callback', to: 'sessions#create'
+  get 'logout', to: 'sessions#log_out'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :places, only: %i[index show update]
 end
