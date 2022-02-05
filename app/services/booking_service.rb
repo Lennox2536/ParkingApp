@@ -4,7 +4,7 @@ class BookingService < ActionService
       user = user(user_data)
       place = place(place_number)
 
-      return unless place.free?
+      return unless place&.free?
       return if user.booked_place?
 
       !!Booking.create(user: user, place: place)

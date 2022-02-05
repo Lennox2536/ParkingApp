@@ -1,5 +1,12 @@
-class SlackController < ApplicationController
-  skip_before_action :set_current_user, :verify_authenticity_token
+class SlackController < ActionController::Base
+  class UnauthorizedRequestException < StandardError; end
+  skip_before_action :verify_authenticity_token
+  before_action :verify_slack_signature
+
+  rescue_from UnauthorizedRequestException do
+    json = { text: 'Unauthorized' }
+    render json: json
+  end
 
   def book
     if BookingService.perform(user, params['text'].to_i)
@@ -45,5 +52,18 @@ class SlackController < ApplicationController
     user = User.find_by(slack_id: params['user_id'])
     user ||= User.create(slack_id: params['user_id'], name: params['user_name'])
     user
+  end
+
+  def verify_slack_signature
+    timestamp = request.headers['X-Slack-Request-Timestamp']
+    if (Time.now.to_i - timestamp.to_i).abs > 60 * 5
+      raise UnauthorizedRequestException
+    end
+
+    sig_basestring = "v0:#{timestamp}:#{request.raw_post}"
+    signature = "v0=#{OpenSSL::HMAC.hexdigest('SHA256', ENV['SIGNING_SECRET'], sig_basestring)}"
+    slack_signature = request.headers['X-Slack-Signature']
+
+    raise UnauthorizedRequestException unless signature == slack_signature
   end
 end

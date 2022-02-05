@@ -1,7 +1,8 @@
 require "test_helper"
 
 class SlackControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should refuse invalid signature" do
+    post slack_book_path
+    assert_equal '{"text":"Unauthorized"}', @response.body
+  end
 end
