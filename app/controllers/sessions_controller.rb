@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def create
     user = UserProvider.retrieve_user(params[:code])
-
+    puts "inside create"
     maybe_user = User.find_by(slack_id: user.slack_id)
     if maybe_user
       session[:user_id] = maybe_user.id
