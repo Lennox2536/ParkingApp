@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
       else
         flash.alert = "Something went wrong"
-        redirect_to '/'
+        redirect_to '/' and return
       end
     end
 
